@@ -10,8 +10,13 @@ let workerCount = process.env.CLUSTER_PROCESS
   ? parseInt(process.env.CLUSTER_PROCESS, 10)
   : 1;
 
+import { winstonLogger } from './utils/winston.util';
+
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    bufferLogs: true,
+    logger: winstonLogger,
+  });
 
   app.use(
     json({
