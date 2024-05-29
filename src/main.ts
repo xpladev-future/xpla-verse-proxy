@@ -14,11 +14,24 @@ let workerCount = process.env.CLUSTER_PROCESS
   ? parseInt(process.env.CLUSTER_PROCESS, 10)
   : 1;
 
+import { winstonLogger } from './utils/winston.util';
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: [process.env.NODE_ENV === 'development' ? 'debug' : 'log'],
   });
   app.use(json({ limit: config.maxBodySize }));
+    bufferLogs: true,
+    logger: winstonLogger,
+  });
+
+  app.use(
+    json({
+      limit: process.env.MAX_BODY_BYTE_SIZE
+        ? parseInt(process.env.MAX_BODY_BYTE_SIZE, 10)
+        : 524288,
+    }),
+  );
   app.useGlobalPipes(new ValidationPipe());
   app.useWebSocketAdapter(new WsAdapter(app));
   app.enableCors({

@@ -38,12 +38,14 @@
     "ethers": "^5.7.1",
     "ioredis": "^5.3.1",
     "jest-websocket-mock": "^2.5.0",
+    "nest-winston": "^1.9.4",
     "nestjs-real-ip": "^2.2.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
     "socket.io-client": "^4.7.5",
     "ws": "^8.17.0"
+    "winston": "^3.12.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",

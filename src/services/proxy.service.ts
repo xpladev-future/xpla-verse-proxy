@@ -1,4 +1,4 @@
-import { Injectable, ForbiddenException } from '@nestjs/common';
+import { Injectable, Logger, ForbiddenException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { VerseService } from './verse.service';
 import { TransactionService } from './transaction.service';
@@ -14,6 +14,8 @@ import { DatastoreService } from 'src/repositories';
 
 @Injectable()
 export class ProxyService {
+  private readonly logger = new Logger();
+
   private isUseBlockNumberCache: boolean;
   private isUseDatastore: boolean;
   private isUseReadNode: boolean;
@@ -147,13 +149,13 @@ export class ProxyService {
             message: err.message,
           },
         };
-        console.error(err.message);
+        this.logger.error(err.message);
         return {
           status,
           data,
         };
       }
-      console.error(err);
+      this.logger.error(err);
       return {
         status,
         data: err,
