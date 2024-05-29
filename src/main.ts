@@ -18,12 +18,10 @@ import { winstonLogger } from './utils/winston.util';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
-    logger: [process.env.NODE_ENV === 'development' ? 'debug' : 'log'],
-  });
-  app.use(json({ limit: config.maxBodySize }));
     bufferLogs: true,
     logger: winstonLogger,
   });
+  app.use(json({ limit: config.maxBodySize }));
 
   app.use(
     json({
