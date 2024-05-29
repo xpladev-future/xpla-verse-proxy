@@ -7,6 +7,7 @@ import {
 import { ConfigModule } from '@nestjs/config';
 import { HttpModule } from '@nestjs/axios';
 import { ProxyController } from './controllers';
+import { WSGateway } from './gateways';
 import {
   ProxyService,
   TransactionService,
@@ -14,6 +15,7 @@ import {
   AllowCheckService,
   TypeCheckService,
   RateLimitService,
+  WSClientManagerService,
 } from './services';
 import { DatastoreService } from './repositories';
 import configuration from './config/configuration';
@@ -36,6 +38,8 @@ import { LoggerMiddleware } from './middlewares/logger.middleware';
     TypeCheckService,
     DatastoreService,
     RateLimitService,
+    WSGateway,
+    WSClientManagerService,
   ],
 })
 export class AppModule implements NestModule {
